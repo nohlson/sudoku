@@ -26,4 +26,14 @@ public class Sudoku { //default constructor
 		by the constructor */
 	}
 
+	public int[][] board() {
+		//returns a copy of the current state of the board
+	}
+
+	public boolean[] candidates(int row, int column) {
+		//returns the list of candidates for the specified cell the array
+		//contains true at i if i is a candidate for the cell at row and column
+	}
+
+
 }
