@@ -21,11 +21,6 @@ public class Sudoku { //default constructor
 		//returns true if the board is in a solved state
 	}
 
-	public void solve() {
-		/*the core of the solving code. attempts to solve the sudoku board created
-		by the constructor */
-	}
-
 	public int[][] board() {
 		//returns a copy of the current state of the board
 	}
@@ -34,6 +29,12 @@ public class Sudoku { //default constructor
 		//returns the list of candidates for the specified cell the array
 		//contains true at i if i is a candidate for the cell at row and column
 	}
+
+	public void solve() {
+		/*the core of the solving code. attempts to solve the sudoku board created
+		by the constructor */
+	}
+
 
 
 }
