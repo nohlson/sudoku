@@ -9,6 +9,33 @@ public class Sudoku { //default constructor
 	static int[][][] candidates;
 
 
+	public void printBoard() {
+		System.out.println("    1 2 3   4 5 6   7 8 9    "); //this prints out the empty board
+	    System.out.println("  +-------+-------+-------+  ");
+	    System.out.println("A | "+board[0][0]+" "+board[0][1]+" "+board[0][2]+" | "+board[0][3]+" "+board[0][4]+" "+
+	                       board[0][5]+" | "+board[0][6]+" "+board[0][7]+" "+board[0][8]+" | ");
+	    System.out.println("B | "+board[1][0]+" "+board[1][1]+" "+board[1][2]+" | "+board[1][3]+" "+board[1][4]+" "+
+	                       board[1][5]+" | "+board[1][6]+" "+board[1][7]+" "+board[1][8]+" | ");
+	    System.out.println("C | "+board[2][0]+" "+board[2][1]+" "+board[2][2]+" | "+board[2][3]+" "+board[2][4]+" "+
+	                        board[2][5]+" | "+board[2][6]+" "+board[2][7]+" "+board[2][8]+" | ");
+	    System.out.println("  +-------+-------+-------+  ");
+	    System.out.println("D | "+board[3][0]+" "+board[3][1]+" "+board[3][2]+" | "+board[3][3]+" "+board[3][4]+" "+
+	                        board[3][5]+" | "+board[3][6]+" "+board[3][7]+" "+board[3][8]+" | ");
+	    System.out.println("E | "+board[4][0]+" "+board[4][1]+" "+board[4][2]+" | "+board[4][3]+" "+board[4][4]+" "+
+	                        board[4][5]+" | "+board[4][6]+" "+board[4][7]+" "+board[4][8]+" | ");
+	    System.out.println("F | "+board[5][0]+" "+board[5][1]+" "+board[5][2]+" | "+board[5][3]+" "+board[5][4]+" "+
+	                        board[5][5]+" | "+board[5][6]+" "+board[5][7]+" "+board[5][8]+" | ");
+	    System.out.println("  +-------+-------+-------+  ");
+	    System.out.println("G | "+board[6][0]+" "+board[6][1]+" "+board[6][2]+" | "+board[6][3]+" "+board[6][4]+" "+
+	                        board[6][5]+" | "+board[6][6]+" "+board[6][7]+" "+board[6][8]+" | ");
+	    System.out.println("H | "+board[7][0]+" "+board[7][1]+" "+board[7][2]+" | "+board[7][3]+" "+board[7][4]+" "+
+	                        board[7][5]+" | "+board[7][6]+" "+board[7][7]+" "+board[7][8]+" | ");
+	    System.out.println("I | "+board[8][0]+" "+board[8][1]+" "+board[8][2]+" | "+board[8][3]+" "+board[8][4]+" "+
+	                        board[8][5]+" | "+board[8][6]+" "+board[8][7]+" "+board[8][8]+" | ");
+	    System.out.println("  +-------+-------+-------+  ");
+	}
+
+
 	public void setCandidates() {
 		//this first part sets only cells that have a value's candidate values to 0;
 		for (int l = 0; l < 9; l++) {
@@ -21,13 +48,30 @@ public class Sudoku { //default constructor
 		/////////
 		//next section will calculate the actual candidates for the cells
 
+		//eliminate candidates based on row
+		int holder;
+		for (int l = 0; l < 9; l++) {
+			for (int m = 0; m < 9; m++) {
+				for (int o = 0; o < 9; o++)
+					if(o != m) {
+						if (board[l][o] != 0) {
+							holder = board[l][o];
+							candidates[l][m][holder] = 0;
+						}
+					}
+			}
+		}
+		///////
+		for (int a = 0; a < 9; a++) {
+			System.out.println(candidates[3][2][a]);
+		}
+
 
 	}
 
 	public Sudoku() {
-		int[][] board;
-		board = new int[9][9];
 		candidates = new int[9][9][9];
+		board = new int[9][9];
 		for (int i = 0; i < 9; i++) {      //iterate through every cell in the 2D array
 			for (int j = 0; j < 9; j++) {  //and set every value
 				board[i][j] = 0;           //to 0
@@ -47,6 +91,8 @@ public class Sudoku { //default constructor
 	}
 
 	public Sudoku(int[][] inBoard) {
+		candidates = new int[9][9][9];
+		board = new int[9][9];
 		/*creates a Sudoku object with an initial board defined
 		by the 2D array 'board'. board[r][c] represents the
 		value stored in the cell at the intersection of row r
@@ -109,8 +155,13 @@ public class Sudoku { //default constructor
 	}
 
 	public static void main(String[] args) {
-		Sudoku s = new Sudoku();
+		int[][] testBoard;
+		testBoard = new int[9][9];
+		testBoard[3][3] = 4;
+		Sudoku s = new Sudoku(testBoard);
 		System.out.println(s.isSolved());
+		s.printBoard();
+		s.setCandidates();
 	}
 
 
