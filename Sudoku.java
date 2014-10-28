@@ -37,11 +37,14 @@ public class Sudoku { //default constructor
 
 
 	public void setCandidates() {
-		//this first part sets only cells that have a value's candidate values to 0;
+		//this first part sets only cells that have a value candidate values to 0;
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int n = 0; n < 9; n++) { 
-					candidates[l][m][n] = n;  
+					if (board[l][m] != 0) {
+						candidates[l][m][n] = 0;  
+					}
+					
 				}
 			}
 		}
@@ -56,14 +59,37 @@ public class Sudoku { //default constructor
 					if(o != m) {
 						if (board[l][o] != 0) {
 							holder = board[l][o];
-							candidates[l][m][holder] = 0;
+							candidates[l][m][holder - 1] = 0;
 						}
 					}
 			}
 		}
 		///////
+		//////eliminate candidates based on column
+		for (int l = 0; l < 9; l++) {
+			for (int m = 0; m < 9; m++) {
+				for (int o = 0; o < 9; o++) {
+					if (board[o][m] != 0) {
+						holder = board[o][m];
+						candidates[l][m][holder - 1] = 0;
+					}	
+				}
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+		//check
 		for (int a = 0; a < 9; a++) {
-			System.out.println(candidates[3][2][a]);
+			System.out.println(candidates[2][3][a]);
 		}
 
 
@@ -82,7 +108,7 @@ public class Sudoku { //default constructor
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int n = 0; n < 9; n++) { 
-					candidates[l][m][n] = n;  //initializes the candidates 3D matrix to every value
+					candidates[l][m][n] = n + 1;  //initializes the candidates 3D matrix to every value
 				}
 			}
 		}
@@ -102,7 +128,7 @@ public class Sudoku { //default constructor
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int n = 0; n < 9; n++) { 
-					candidates[l][m][n] = n;  
+					candidates[l][m][n] = n + 1;  
 				}
 			}
 		}
@@ -158,6 +184,7 @@ public class Sudoku { //default constructor
 		int[][] testBoard;
 		testBoard = new int[9][9];
 		testBoard[3][3] = 4;
+		testBoard[3][4] = 6;
 		Sudoku s = new Sudoku(testBoard);
 		System.out.println(s.isSolved());
 		s.printBoard();
