@@ -11,12 +11,21 @@ public class Sudoku { //default constructor
 	public Sudoku() {
 		int[][] board;
 		board = new int[9][9];
+		candidates = new int[9][9][9];
 		for (int i = 0; i < 9; i++) {      //iterate through every cell in the 2D array
 			for (int j = 0; j < 9; j++) {  //and set every value
 				board[i][j] = 0;           //to 0
 			}
 		}
 		this.board = board; //creates a field for the board matrix
+
+		for (int l = 0; l < 9; l++) {
+			for (int m = 0; m < 9; m++) {
+				for (int n = 0; n < 9; n++) { 
+					candidates[l][m][n] = n;  //initializes the candidates 3D matrix to every value
+				}
+			}
+		}
 		this.candidates = candidates; //creates a field for the candidates 3D matrix 
 		//creates a Sudoku object and initializes an empty board
 	}
@@ -74,8 +83,7 @@ public class Sudoku { //default constructor
 		/*the core of the solving code. attempts to solve the sudoku board created
 		by the constructor */
 		while (isSolved() && (nakedSingles() || hiddenSingles())) {
-
-
+			//logic goes here
 		}
 	}
 
