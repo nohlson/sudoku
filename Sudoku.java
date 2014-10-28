@@ -5,16 +5,17 @@ CS180
 */
 
 public class Sudoku { //default constructor
-	
+	int[][] board;
 
 	public Sudoku() {
 		int[][] board;
 		board = new int[9][9];
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				board[i][j] = 0;
+		for (int i = 0; i < 9; i++) {      //iterate through every cell in the 2D array
+			for (int j = 0; j < 9; j++) {  //and set every value
+				board[i][j] = 0;           //to 0
 			}
 		}
+		this.board = board; //creates a field for the object that holds the board matrix
 		//creates a Sudoku object and initializes an empty board
 	}
 
@@ -27,7 +28,19 @@ public class Sudoku { //default constructor
 
 	public boolean isSolved() {
 		//returns true if the board is in a solved state
-		return true;
+		boolean holder = true;
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (this.board[i][j] != 0) {
+					holder = true;
+				} else {
+					holder = false;
+					break;
+				}
+
+			}
+		}
+		return holder;
 	}
 
 	public int[][] board() {
@@ -48,13 +61,14 @@ public class Sudoku { //default constructor
 	}
 
 	public void solve() {
+
 		/*the core of the solving code. attempts to solve the sudoku board created
 		by the constructor */
 	}
 
 	public static void main(String[] args) {
 		Sudoku s = new Sudoku();
-		
+		System.out.println(s.isSolved());
 	}
 
 
