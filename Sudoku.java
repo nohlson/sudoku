@@ -2,10 +2,11 @@
 Sudoku puzzle solver
 Ian Polito and Nate Ohlson
 CS180
-*/
 
+*/
 public class Sudoku { //default constructor
 	int[][] board;
+	int[][][] candidates;
 
 	public Sudoku() {
 		int[][] board;
@@ -15,7 +16,8 @@ public class Sudoku { //default constructor
 				board[i][j] = 0;           //to 0
 			}
 		}
-		this.board = board; //creates a field for the object that holds the board matrix
+		this.board = board; //creates a field for the board matrix
+		this.candidates = candidates; //creates a field for the candidates 3D matrix 
 		//creates a Sudoku object and initializes an empty board
 	}
 
@@ -24,6 +26,7 @@ public class Sudoku { //default constructor
 		by the 2D array 'board'. board[r][c] represents the
 		value stored in the cell at the intersection of row r
 		and column c. 0 represents an empty cell */
+		this.board = board;
 	}
 
 	public boolean isSolved() {
@@ -31,13 +34,12 @@ public class Sudoku { //default constructor
 		boolean holder = true;
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				if (this.board[i][j] != 0) {
+				if (this.board[i][j] != 0) { //iterates over all the cells in board and checks if their non-zero
 					holder = true;
 				} else {
 					holder = false;
 					break;
 				}
-
 			}
 		}
 		return holder;
@@ -54,16 +56,27 @@ public class Sudoku { //default constructor
 	public boolean[] candidates(int row, int column) {
 		//returns the list of candidates for the specified cell the array
 		//contains true at i if i is a candidate for the cell at row and column
-		boolean[] f;
-		f = new boolean[1];
-		f[0] = true;
-		return f;
+		boolean[] holder;
+		holder = new boolean[9];
+		holder[0] = true;
+		return holder;
+	}
+
+	public boolean nakedSingles() {
+		return true;
+	}
+
+	public boolean hiddenSingles() {
+		return true;
 	}
 
 	public void solve() {
-
 		/*the core of the solving code. attempts to solve the sudoku board created
 		by the constructor */
+		while (isSolved() && (nakedSingles() || hiddenSingles())) {
+
+
+		}
 	}
 
 	public static void main(String[] args) {
