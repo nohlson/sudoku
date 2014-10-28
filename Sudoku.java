@@ -56,7 +56,7 @@ public class Sudoku { //default constructor
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int o = 0; o < 9; o++)
-					if(o != m) {
+					if (o != m) {
 						if (board[l][o] != 0) {
 							holder = board[l][o];
 							candidates[l][m][holder - 1] = 0;
@@ -69,28 +69,47 @@ public class Sudoku { //default constructor
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int o = 0; o < 9; o++) {
-					if (board[o][m] != 0) {
-						holder = board[o][m];
-						candidates[l][m][holder - 1] = 0;
-					}	
+					if (o != m) {
+						if (board[o][m] != 0) {
+							holder = board[o][m];
+							candidates[l][m][holder - 1] = 0;
+						}	
+					}
 				}
 			}
 		}
+		/////
+		/////eliminate candidates based on box
+		int numBox1 = 0;
+		int numBox2 = 0;
+		//box
+		for (int nb = 0; nb <= 2; nb++) {
+			numBox1 = nb * 3;
+			for (int nb2 = 0; nb2 <= 2; nb2++) {
+				numBox2 = nb2 * 3;
+				for (int l = numBox1; l <= (2 + numBox1); l++) {
+					for (int m = numBox2; m <= (2 + numBox2); m++) {
+						for (int r = numBox1; r <= (2 + numBox1); r++) {
+							for (int c = numBox2; c <= (2 + numBox2); c++) {
 
+								if (board[r][c] != 0) {
 
-
-
-
-
-
-
-
-
-
-		//check
-		for (int a = 0; a < 9; a++) {
-			System.out.println(candidates[2][3][a]);
+									holder = board[r][c];
+									candidates[l][m][holder - 1] = 0;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
+		/*check
+		for (int a = 0; a < 9; a++) {
+			System.out.println(candidates[4][5][a]);
+		}
+		*/
+		
+		
 
 
 	}
