@@ -5,8 +5,24 @@ CS180
 
 */
 public class Sudoku { //default constructor
-	int[][] board;
-	int[][][] candidates;
+	static int[][] board;
+	static int[][][] candidates;
+
+
+	public void setCandidates() {
+		//this first part sets only cells that have a value's candidate values to 0;
+		for (int l = 0; l < 9; l++) {
+			for (int m = 0; m < 9; m++) {
+				for (int n = 0; n < 9; n++) { 
+					candidates[l][m][n] = n;  
+				}
+			}
+		}
+		/////////
+		//next section will calculate the actual candidates for the cells
+
+
+	}
 
 	public Sudoku() {
 		int[][] board;
@@ -17,7 +33,7 @@ public class Sudoku { //default constructor
 				board[i][j] = 0;           //to 0
 			}
 		}
-		this.board = board; //creates a field for the board matrix
+			 //creates a field for the board matrix
 
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
@@ -26,16 +42,24 @@ public class Sudoku { //default constructor
 				}
 			}
 		}
-		this.candidates = candidates; //creates a field for the candidates 3D matrix 
+		 //creates a field for the candidates 3D matrix 
 		//creates a Sudoku object and initializes an empty board
 	}
 
-	public Sudoku(int[][] board) {
+	public Sudoku(int[][] inBoard) {
 		/*creates a Sudoku object with an initial board defined
 		by the 2D array 'board'. board[r][c] represents the
 		value stored in the cell at the intersection of row r
 		and column c. 0 represents an empty cell */
-		this.board = board;
+		board = inBoard; //sets the overall board equal to the arguement board
+
+		for (int l = 0; l < 9; l++) {
+			for (int m = 0; m < 9; m++) {
+				for (int n = 0; n < 9; n++) { 
+					candidates[l][m][n] = n;  
+				}
+			}
+		}
 	}
 
 	public boolean isSolved() {
@@ -43,7 +67,7 @@ public class Sudoku { //default constructor
 		boolean holder = true;
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				if (this.board[i][j] != 0) { //iterates over all the cells in board and checks if their non-zero
+				if (board[i][j] != 0) { //iterates over all the cells in board and checks if their non-zero
 					holder = true;
 				} else {
 					holder = false;
@@ -56,10 +80,7 @@ public class Sudoku { //default constructor
 
 	public int[][] board() {
 		//returns a copy of the current state of the board
-		int[][] f;
-		f = new int[1][1];
-		f[0][0] = 1;
-		return f;
+		return board;
 	}
 
 	public boolean[] candidates(int row, int column) {
