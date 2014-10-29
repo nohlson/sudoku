@@ -232,26 +232,38 @@ public class Sudoku { //default constructor
 	public static void main(String[] args) {
 		int[][] testBoard;
 		testBoard = new int[9][9];
-		testBoard[3][3] = 4;
-		testBoard[3][4] = 6;
-		testBoard[3][5] = 1;
-		testBoard[4][3] = 3;
-		testBoard[4][4] = 7;
-		testBoard[4][5] = 9;
-		testBoard[5][3] = 2;
-		testBoard[5][5] = 5;
+		if (args.length > 0) {
+			int m = 0;
+			for (int r = 0; r < 9; r++) {
+				for (int c = 0; c < 9; c++) {
+						testBoard[r][c] = Character.getNumericValue(args[0].charAt(m));
+						m++;
+				}
+			}
+			
+			
+		} else {
+			testBoard[3][3] = 4;
+			testBoard[3][4] = 6;
+			testBoard[3][5] = 1;
+			testBoard[4][3] = 3;
+			testBoard[4][4] = 7;
+			testBoard[4][5] = 9;
+			testBoard[5][3] = 2;
+			testBoard[5][5] = 5;
 
-		testBoard[0][4] = 1;
-		testBoard[1][4] = 2;
+			testBoard[0][4] = 1;
+			testBoard[1][4] = 2;
 
 
-		testBoard[3][4] = 6;
-		testBoard[4][4] = 7;
-		// testBoard[5][4] = 8;
+			testBoard[3][4] = 6;
+			testBoard[4][4] = 7;
+			// testBoard[5][4] = 8;
 
-		testBoard[6][4] = 5;
-		testBoard[7][4] = 4;
-		testBoard[8][4] = 9;
+			testBoard[6][4] = 5;
+			testBoard[7][4] = 4;
+			testBoard[8][4] = 9;
+		}
 
 		Sudoku s = new Sudoku(testBoard);
 		System.out.println(s.isSolved());
