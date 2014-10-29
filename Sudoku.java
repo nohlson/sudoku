@@ -91,9 +91,7 @@ public class Sudoku { //default constructor
 					for (int m = numBox2; m <= (2 + numBox2); m++) {
 						for (int r = numBox1; r <= (2 + numBox1); r++) {
 							for (int c = numBox2; c <= (2 + numBox2); c++) {
-
 								if (board[r][c] != 0) {
-
 									holder = board[r][c];
 									candidates[l][m][holder - 1] = 0;
 								}
@@ -103,15 +101,7 @@ public class Sudoku { //default constructor
 				}
 			}
 		}
-		/*check
-		for (int a = 0; a < 9; a++) {
-			System.out.println(candidates[4][5][a]);
-		}
-		*/
-		
-		
-
-
+		/////
 	}
 
 	public Sudoku() {
@@ -196,6 +186,16 @@ public class Sudoku { //default constructor
 		by the constructor */
 		while (isSolved() && (nakedSingles() || hiddenSingles())) {
 			//logic goes here
+			//the basic idea goes as this
+			//Step 1: setCandidates()
+			//Step 2: find naked singles
+			//Step 3: set naked singles to board value
+			//step 4: setCandidates()
+			//step 5: repeat until no more naked singles
+			//step 6: find hidden singles
+			//step 7: set hidden singles to board value
+			//step 8: repeat whole system until solved
+			setCandidates();
 		}
 	}
 
@@ -204,10 +204,17 @@ public class Sudoku { //default constructor
 		testBoard = new int[9][9];
 		testBoard[3][3] = 4;
 		testBoard[3][4] = 6;
+		testBoard[0][5] = 8;
 		Sudoku s = new Sudoku(testBoard);
 		System.out.println(s.isSolved());
 		s.printBoard();
 		s.setCandidates();
+		//check
+		System.out.println("check for cell rF c6");
+		for (int a = 0; a < 9; a++) {
+			System.out.println(candidates[4][5][a]);
+		}
+		
 	}
 
 
