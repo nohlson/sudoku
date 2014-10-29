@@ -9,6 +9,31 @@ public class Sudoku { //default constructor
 	static int[][][] candidates;
 
 
+	public void setNakedSingles() {
+		//find a cell with a naked single
+		int zeroCounter = 0;
+		for (int l = 0; l < 9; l++) {
+			for (int m = 0; m < 9; m++) {
+				zeroCounter = 0;
+				for (int o = 0; o < 9; o++)
+					if (candidates[l][m][o] == 0) {
+						zeroCounter++;
+					}
+					if (zeroCounter == 8) { //found a naked single. put that in
+						for (int z = 0; z < 9; z++) {
+							if (candidates[l][m][z] != 0) {
+								board[l][m] = candidates[l][m][z];
+								break;
+							}
+						}
+					}
+				}
+			}
+
+
+	}
+
+
 	public void printBoard() {
 		System.out.println("    1 2 3   4 5 6   7 8 9    "); //this prints out the empty board
 	    System.out.println("  +-------+-------+-------+  ");
@@ -56,12 +81,10 @@ public class Sudoku { //default constructor
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int o = 0; o < 9; o++)
-					if (o != m) {
 						if (board[l][o] != 0) {
 							holder = board[l][o];
 							candidates[l][m][holder - 1] = 0;
 						}
-					}
 			}
 		}
 		///////
@@ -69,11 +92,9 @@ public class Sudoku { //default constructor
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int o = 0; o < 9; o++) {
-					if (o != m) {
-						if (board[o][m] != 0) {
-							holder = board[o][m];
-							candidates[l][m][holder - 1] = 0;
-						}	
+					if (board[o][m] != 0) {
+						holder = board[o][m];
+						candidates[l][m][holder - 1] = 0;
 					}
 				}
 			}
@@ -184,7 +205,7 @@ public class Sudoku { //default constructor
 	public void solve() {
 		/*the core of the solving code. attempts to solve the sudoku board created
 		by the constructor */
-		while (isSolved() && (nakedSingles() || hiddenSingles())) {
+		// while (isSolved() && (nakedSingles() || hiddenSingles())) {
 			//logic goes here
 			//the basic idea goes as this
 			//Step 1: setCandidates()
@@ -195,8 +216,17 @@ public class Sudoku { //default constructor
 			//step 6: find hidden singles
 			//step 7: set hidden singles to board value
 			//step 8: repeat whole system until solved
+			
+			printBoard();
 			setCandidates();
-		}
+			setNakedSingles();
+			printBoard();
+			setCandidates();
+			setNakedSingles();
+			printBoard();
+
+			// break;
+		// }
 	}
 
 	public static void main(String[] args) {
@@ -204,16 +234,33 @@ public class Sudoku { //default constructor
 		testBoard = new int[9][9];
 		testBoard[3][3] = 4;
 		testBoard[3][4] = 6;
-		testBoard[0][5] = 8;
+		testBoard[3][5] = 1;
+		testBoard[4][3] = 3;
+		testBoard[4][4] = 7;
+		testBoard[4][5] = 9;
+		testBoard[5][3] = 2;
+		testBoard[5][5] = 5;
+
+		testBoard[0][4] = 1;
+		testBoard[1][4] = 2;
+
+
+		testBoard[3][4] = 6;
+		testBoard[4][4] = 7;
+		// testBoard[5][4] = 8;
+
+		testBoard[6][4] = 5;
+		testBoard[7][4] = 4;
+		testBoard[8][4] = 9;
+
 		Sudoku s = new Sudoku(testBoard);
 		System.out.println(s.isSolved());
-		s.printBoard();
-		s.setCandidates();
+		s.solve();
+
+		
+
 		//check
-		System.out.println("check for cell rF c6");
-		for (int a = 0; a < 9; a++) {
-			System.out.println(candidates[4][5][a]);
-		}
+		
 		
 	}
 
