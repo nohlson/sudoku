@@ -19,6 +19,7 @@ public class Sudoku { //default constructor
 		isHiddenSingles = false;
 		for (int r = 0; r < 9; r++) {
 			for (int c = 0; c < 9; c++) { //picked cell
+				setCandidates();
 				for (int z = 0; z < 9; z++) {
 					if (candidates[r][c][z] != 0) { //picked a single candidate in that cell to test full row and columb candidates
 						testCandidate = candidates[r][c][z];
@@ -69,439 +70,432 @@ public class Sudoku { //default constructor
 			for (int cc = 0; cc < 9; cc++) { //picked cell
 				setCandidates();
 				if (board[rr][cc] == 0) {
-				for (int zz = 0; zz < 9; zz++) {
-					if (candidates[rr][cc][zz] != 0) {
-						otherBoxHolder = candidates[rr][cc][zz];
-						changeVertical = 0;
-						changeHorizontal = 0;
+					for (int zz = 0; zz < 9; zz++) {
+						if (candidates[rr][cc][zz] != 0) {
+							otherBoxHolder = candidates[rr][cc][zz];
+							changeVertical = 0;
+							changeHorizontal = 0;
 
 
-						if (rr < 3 && cc < 3) { //box 1
+							if (rr < 3 && cc < 3) { //box 1
 
-							for (int b2r = 3; b2r < 6; b2r++) { //checking box 2
-								for (int b2c = 0; b2c < 3; b2c++) {
-									if (board[b2r][b2c] == otherBoxHolder) {
-										changeHorizontal++;
+								for (int b2r = 0; b2r < 3; b2r++) { //checking box 2
+									for (int b2c = 3; b2c < 6; b2c++) {
+										if (board[b2r][b2c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+
 									}
+								}
 
+								for (int b3r = 0; b3r < 3; b3r++) { //checking box 3
+									for (int b3c = 6; b3c < 9; b3c++) {
+										if (board[b3r][b3c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+								for (int bd1r = 3; bd1r < 6; bd1r++) { //checking box 4
+									for (int bd1c = 0; bd1c < 3; bd1c++) {
+										if (board[bd1r][bd1c] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 7
+									for (int bd2c = 0; bd2c < 3; bd2c++) {
+										if (board[bd2r][bd2c] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								if (changeVertical == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+							}
+
+							if (rr < 3 && cc < 6 && cc >= 3) { // box 2
+
+								for (int b2lr = 0; b2lr < 3; b2lr++) { //checking box 1
+									for (int b2lc = 0; b2lc < 3; b2lc++) {
+										if (board[b2lr][b2lc] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								for (int b2rr = 0; b2rr < 3; b2rr++) { //checking box 3
+									for (int b2rc = 6; b2rc < 9; b2rc++) {
+										if (board[b2rr][b2rc] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+								for (int b1dr = 3; b1dr < 6; b1dr++) { //checking box 5
+									for (int b2dc = 3; b2dc < 6; b2dc++) {
+										if (board[b1dr][b2dc] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
+									for (int b2dc = 6; b2dc < 9; b2dc++) {
+										if (board[b2dr][b2dc] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								if (changeVertical == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+							}
+
+							if (rr < 3 && cc >= 6) { //box 3
+
+								for (int b2lr = 0; b2lr < 3; b2lr++) { //checking box 1
+									for (int b2lc = 0; b2lc < 3; b2lc++) {
+										if (board[b2lr][b2lc] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								for (int b2r = 0; b2r < 3; b2r++) { //checking box 2
+									for (int b2c = 3; b2c < 6; b2c++) {
+										if (board[b2r][b2c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+
+									}
+								}
+
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+
+								for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
+									for (int b2dc = 6; b2dc < 9; b2dc++) {
+										if (board[b2dr][b2dc] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								for (int b3dr = 6; b3dr < 9; b3dr++) { //checking box 9
+									for (int b3dc = 6; b3dc < 9; b3dc++) {
+										if (board[b3dr][b3dc] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								if (changeVertical == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+							}
+
+							if (rr >= 3 && rr < 6 && cc < 3) { //box 4
+
+								for (int b2lr = 0; b2lr < 3; b2lr++) { //checking box 1
+									for (int b2lc = 0; b2lc < 3; b2lc++) {
+										if (board[b2lr][b2lc] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 7
+									for (int bd2c = 0; bd2c < 3; bd2c++) {
+										if (board[bd2r][bd2c] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								if (changeVertical == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+								for (int b1dr = 3; b1dr < 6; b1dr++) { //checking box 5
+									for (int b2dc = 3; b2dc < 6; b2dc++) {
+										if (board[b1dr][b2dc] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
+									for (int b2dc = 6; b2dc < 9; b2dc++) {
+										if (board[b2dr][b2dc] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
 								}
 							}
 
-							for (int b3r = 6; b3r < 9; b3r++) { //checking box 3
-								for (int b3c = 0; b3c < 3; b3c++) {
-									if (board[b3r][b3c] == otherBoxHolder) {
-										changeHorizontal++;
+							if (rr >= 3 && rr < 6 && cc >= 3 && cc < 6) { //box 5
+
+								for (int b2r = 0; b2r < 3; b2r++) { //checking box 2
+									for (int b2c = 3; b2c < 6; b2c++) {
+										if (board[b2r][b2c] == otherBoxHolder) {
+											changeVertical++;
+										}
+
 									}
+								}
+
+								for (int bd4r = 6; bd4r < 9; bd4r++) { //checking box 8
+									for (int bd4c = 3; bd4c < 6; bd4c++) {
+										if (board[bd4r][bd4c] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								if (changeVertical == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+								for (int bd1r = 3; bd1r < 6; bd1r++) { //checking box 4
+									for (int bd1c = 0; bd1c < 3; bd1c++) {
+										if (board[bd1r][bd1c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
+									for (int b2dc = 6; b2dc < 9; b2dc++) {
+										if (board[b2dr][b2dc] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
 								}
 							}
 
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
+							if (rr >= 3 && rr < 6 && cc >= 6) { //box 6
 
-							for (int bd1r = 3; bd1r < 6; bd1r++) { //checking box 4
-								for (int bd1c = 0; bd1c < 3; bd1c++) {
-									if (board[bd1r][bd1c] == otherBoxHolder) {
-										changeVertical++;
+								for (int bd1r = 3; bd1r < 6; bd1r++) { //checking box 4
+									for (int bd1c = 0; bd1c < 3; bd1c++) {
+										if (board[bd1r][bd1c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
 									}
+								}
+
+								for (int b1dr = 3; b1dr < 6; b1dr++) { //checking box 5
+									for (int b2dc = 3; b2dc < 6; b2dc++) {
+										if (board[b1dr][b2dc] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+								for (int b2rr = 0; b2rr < 3; b2rr++) { //checking box 3
+									for (int b2rc = 6; b2rc < 9; b2rc++) {
+										if (board[b2rr][b2rc] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 9
+									for (int bd2c = 6; bd2c < 9; bd2c++) {
+										if (board[bd2r][bd2c] == otherBoxHolder) {
+											changeVertical++;
+										}
+									}
+								}
+
+								if (changeVertical == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
 								}
 							}
 
-							for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 7
-								for (int bd2c = 0; bd2c < 3; bd2c++) {
-									if (board[bd2r][bd2c] == otherBoxHolder) {
-										changeVertical++;
+							if (rr > 6 && cc < 3) { //box 7
+
+								for (int b2lr = 0; b2lr < 3; b2lr++) { //checking box 1
+									for (int b2lc = 0; b2lc < 3; b2lc++) {
+										if (board[b2lr][b2lc] == otherBoxHolder) {
+											changeVertical++;
+										}
 									}
+								}
+
+								for (int b2r = 0; b2r < 3; b2r++) { //checking box 2
+									for (int b2c = 3; b2c < 6; b2c++) {
+										if (board[b2r][b2c] == otherBoxHolder) {
+											changeVertical++;
+										}
+
+									}
+								}
+
+								if (changeVertical == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+								for (int bd4r = 6; bd4r < 9; bd4r++) { //checking box 8
+									for (int bd4c = 3; bd4c < 6; bd4c++) {
+										if (board[bd4r][bd4c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 9
+									for (int bd2c = 6; bd2c < 9; bd2c++) {
+										if (board[bd2r][bd2c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
+									}
+								}
+
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
 								}
 							}
 
-							if (changeVertical == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
+							if (rr > 6 && cc >= 3 && cc < 6) { //box 8
 
-						}
+								for (int b2r = 0; b2r < 3; b2r++) { //checking box 2
+									for (int b2c = 3; b2c < 6; b2c++) {
+										if (board[b2r][b2c] == otherBoxHolder) {
+											changeVertical++;
+										}
 
-						if (rr < 3 && cc < 6 && cc >= 3) { // box 2
-
-							for (int b2lr = 0; b2lr < 3; b2lr++) { //checking box 1
-								for (int b2lc = 0; b2lc < 3; b2lc++) {
-									if (board[b2lr][b2lc] == otherBoxHolder) {
-										changeHorizontal++;
 									}
 								}
-							}
 
-							for (int b2rr = 0; b2rr < 3; b2rr++) { //checking box 3
-								for (int b2rc = 6; b2rc < 9; b2rc++) {
-									if (board[b2rr][b2rc] == otherBoxHolder) {
-										changeHorizontal++;
+								for (int b1dr = 3; b1dr < 6; b1dr++) { //checking box 5
+									for (int b2dc = 3; b2dc < 6; b2dc++) {
+										if (board[b1dr][b2dc] == otherBoxHolder) {
+											changeVertical++;
+										}
 									}
 								}
-							}
 
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
+								if (changeVertical == 2) {
+									changeVertical++;
+								}
 
-							for (int b1dr = 3; b1dr < 6; b1dr++) { //checking box 5
-								for (int b2dc = 3; b2dc < 6; b2dc++) {
-									if (board[b1dr][b2dc] == otherBoxHolder) {
-										changeVertical++;
+								for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 7
+									for (int bd2c = 0; bd2c < 3; bd2c++) {
+										if (board[bd2r][bd2c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
 									}
 								}
-							}
 
-							for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
-								for (int b2dc = 6; b2dc < 9; b2dc++) {
-									if (board[b2dr][b2dc] == otherBoxHolder) {
-										changeVertical++;
+								for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 9
+									for (int bd2c = 6; bd2c < 9; bd2c++) {
+										if (board[bd2r][bd2c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
 									}
 								}
-							}
 
-							if (changeVertical == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
 
-						}
+	 						}
 
-						if (rr < 3 && cc >= 6) { //box 3
+	 						if (rr >= 6 && cc >= 6) { //box 9
 
-							for (int b2lr = 0; b2lr < 3; b2lr++) { //checking box 1
-								for (int b2lc = 0; b2lc < 3; b2lc++) {
-									if (board[b2lr][b2lc] == otherBoxHolder) {
-										changeHorizontal++;
+
+	 							for (int b2rr = 0; b2rr < 3; b2rr++) { //checking box 3
+									for (int b2rc = 6; b2rc < 9; b2rc++) {
+										if (board[b2rr][b2rc] == otherBoxHolder) {
+											changeVertical++;
+										}
 									}
 								}
-							}
 
-							for (int b2r = 3; b2r < 6; b2r++) { //checking box 2
-								for (int b2c = 0; b2c < 3; b2c++) {
-									if (board[b2r][b2c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-
-								}
-							}
-
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-
-
-							for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
-								for (int b2dc = 6; b2dc < 9; b2dc++) {
-									if (board[b2dr][b2dc] == otherBoxHolder) {
-										changeVertical++;
+								for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
+									for (int b2dc = 6; b2dc < 9; b2dc++) {
+										if (board[b2dr][b2dc] == otherBoxHolder) {
+											changeVertical++;
+										}
 									}
 								}
-							}
 
-							for (int b3dr = 6; b3dr < 9; b3dr++) { //checking box 9
-								for (int b3dc = 6; b3dc < 9; b3dc++) {
-									if (board[b3dr][b3dc] == otherBoxHolder) {
-										changeVertical++;
+								if (changeVertical == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
+								}
+
+								for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 7
+									for (int bd2c = 0; bd2c < 3; bd2c++) {
+										if (board[bd2r][bd2c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
 									}
 								}
-							}
 
-							if (changeVertical == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-
-						}
-
-						if (rr >= 3 && rr < 6 && cc < 3) { //box 4
-
-							for (int b2lr = 0; b2lr < 3; b2lr++) { //checking box 1
-								for (int b2lc = 0; b2lc < 3; b2lc++) {
-									if (board[b2lr][b2lc] == otherBoxHolder) {
-										changeVertical++;
+								for (int bd4r = 6; bd4r < 9; bd4r++) { //checking box 8
+									for (int bd4c = 3; bd4c < 6; bd4c++) {
+										if (board[bd4r][bd4c] == otherBoxHolder) {
+											changeHorizontal++;
+										}
 									}
 								}
-							}
 
-							for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 7
-								for (int bd2c = 0; bd2c < 3; bd2c++) {
-									if (board[bd2r][bd2c] == otherBoxHolder) {
-										changeVertical++;
-									}
+								if (changeHorizontal == 2) {
+									board[rr][cc] = otherBoxHolder;
+									isHiddenSingles = true;
 								}
 							}
-
-							if (changeVertical == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-
-							for (int b1dr = 3; b1dr < 6; b1dr++) { //checking box 5
-								for (int b2dc = 3; b2dc < 6; b2dc++) {
-									if (board[b1dr][b2dc] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
-								for (int b2dc = 6; b2dc < 9; b2dc++) {
-									if (board[b2dr][b2dc] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-						}
-
-						if (rr >= 3 && rr < 6 && cc >= 3 && cc < 6) { //box 5
-
-							for (int b2r = 3; b2r < 6; b2r++) { //checking box 2
-								for (int b2c = 0; b2c < 3; b2c++) {
-									if (board[b2r][b2c] == otherBoxHolder) {
-										changeVertical++;
-									}
-
-								}
-							}
-
-							for (int bd4r = 6; bd4r < 9; bd4r++) { //checking box 8
-								for (int bd4c = 3; bd4c < 6; bd4c++) {
-									if (board[bd4r][bd4c] == otherBoxHolder) {
-										changeVertical++;
-									}
-								}
-							}
-
-							if (changeVertical == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-
-							for (int bd1r = 3; bd1r < 6; bd1r++) { //checking box 4
-								for (int bd1c = 0; bd1c < 3; bd1c++) {
-									if (board[bd1r][bd1c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
-								for (int b2dc = 6; b2dc < 9; b2dc++) {
-									if (board[b2dr][b2dc] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-						}
-
-						if (rr >= 3 && rr < 6 && cc >= 6) { //box 6
-
-							for (int bd1r = 3; bd1r < 6; bd1r++) { //checking box 4
-								for (int bd1c = 0; bd1c < 3; bd1c++) {
-									if (board[bd1r][bd1c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							for (int b1dr = 3; b1dr < 6; b1dr++) { //checking box 5
-								for (int b2dc = 3; b2dc < 6; b2dc++) {
-									if (board[b1dr][b2dc] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-
-							for (int b2rr = 0; b2rr < 3; b2rr++) { //checking box 3
-								for (int b2rc = 6; b2rc < 9; b2rc++) {
-									if (board[b2rr][b2rc] == otherBoxHolder) {
-										changeVertical++;
-									}
-								}
-							}
-
-							for (int bd2r = 0; bd2r < 9; bd2r++) { //checking box 9
-								for (int bd2c = 0; bd2c < 9; bd2c++) {
-									if (board[bd2r][bd2c] == otherBoxHolder) {
-										changeVertical++;
-									}
-								}
-							}
-
-							if (changeVertical == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-						}
-
-						if (rr > 6 && cc < 3) { //box 7
-
-							for (int b2lr = 0; b2lr < 3; b2lr++) { //checking box 1
-								for (int b2lc = 0; b2lc < 3; b2lc++) {
-									if (board[b2lr][b2lc] == otherBoxHolder) {
-										changeVertical++;
-									}
-								}
-							}
-
-							for (int b2r = 3; b2r < 6; b2r++) { //checking box 2
-								for (int b2c = 0; b2c < 3; b2c++) {
-									if (board[b2r][b2c] == otherBoxHolder) {
-										changeVertical++;
-									}
-
-								}
-							}
-
-							if (changeVertical == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-
-							for (int bd4r = 6; bd4r < 9; bd4r++) { //checking box 8
-								for (int bd4c = 3; bd4c < 6; bd4c++) {
-									if (board[bd4r][bd4c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							for (int bd2r = 0; bd2r < 9; bd2r++) { //checking box 9
-								for (int bd2c = 0; bd2c < 9; bd2c++) {
-									if (board[bd2r][bd2c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-						}
-
-						if (rr > 6 && cc >= 3 && cc < 6) { //box 8
-
-							for (int b2r = 3; b2r < 6; b2r++) { //checking box 2
-								for (int b2c = 0; b2c < 3; b2c++) {
-									if (board[b2r][b2c] == otherBoxHolder) {
-										changeVertical++;
-									}
-
-								}
-							}
-
-							for (int b1dr = 3; b1dr < 6; b1dr++) { //checking box 5
-								for (int b2dc = 3; b2dc < 6; b2dc++) {
-									if (board[b1dr][b2dc] == otherBoxHolder) {
-										changeVertical++;
-									}
-								}
-							}
-
-							if (changeVertical == 2) {
-								changeVertical++;
-							}
-
-							for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 7
-								for (int bd2c = 0; bd2c < 3; bd2c++) {
-									if (board[bd2r][bd2c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							for (int bd2r = 0; bd2r < 9; bd2r++) { //checking box 9
-								for (int bd2c = 0; bd2c < 9; bd2c++) {
-									if (board[bd2r][bd2c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-
  						}
-
- 						if (rr >= 6 && cc >= 6) { //box 9
-
-
- 							for (int b2rr = 0; b2rr < 3; b2rr++) { //checking box 3
-								for (int b2rc = 6; b2rc < 9; b2rc++) {
-									if (board[b2rr][b2rc] == otherBoxHolder) {
-										changeVertical++;
-									}
-								}
-							}
-
-							for (int b2dr = 3; b2dr < 6; b2dr++) { //checking box 6
-								for (int b2dc = 6; b2dc < 9; b2dc++) {
-									if (board[b2dr][b2dc] == otherBoxHolder) {
-										changeVertical++;
-									}
-								}
-							}
-
-							if (changeVertical == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-
-							for (int bd2r = 6; bd2r < 9; bd2r++) { //checking box 7
-								for (int bd2c = 0; bd2c < 3; bd2c++) {
-									if (board[bd2r][bd2c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							for (int bd4r = 6; bd4r < 9; bd4r++) { //checking box 8
-								for (int bd4c = 3; bd4c < 6; bd4c++) {
-									if (board[bd4r][bd4c] == otherBoxHolder) {
-										changeHorizontal++;
-									}
-								}
-							}
-
-							if (changeHorizontal == 2) {
-								board[rr][cc] = otherBoxHolder;
-								isHiddenSingles = true;
-							}
-						}
-
-
- 						}
-
 					}
 				}
 			}
 		}
-
-
-
-
 	}
 
 
@@ -722,14 +716,22 @@ public class Sudoku { //default constructor
 			
 
 			setCandidates();
-			setNakedSingles();
-			setCandidates();
-			setHiddenSingles();
-			solveIterations++;
-			if (solveIterations > 20) {
-				System.out.println("The puzzle is too difficult for this version. Try again later(:");
-				break;
+			while (isNakedSingles) {
+				setNakedSingles();
+				setCandidates();
 			}
+			while (isHiddenSingles) {
+				setHiddenSingles();
+				setCandidates();
+			}
+
+
+			solveIterations++;
+			if (solveIterations > 30) {
+				System.out.println("The puzzle is too difficult for this version. Try again later(:");
+				// break;
+			}
+
 
 		}
 		printBoard();
