@@ -729,7 +729,7 @@ public class Sudoku { //default constructor
 			solveIterations++;
 			if (solveIterations > 30) {
 				System.out.println("The puzzle is too difficult for this version. Try again later(:");
-				// break;
+				break;
 			}
 
 
