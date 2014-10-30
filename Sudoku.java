@@ -7,6 +7,54 @@ CS180
 public class Sudoku { //default constructor
 	static int[][] board;
 	static int[][][] candidates;
+	static boolean isNakedSingles;
+
+
+
+	public void setHiddenSingles() {
+		int testCandidate = 0;
+		boolean isInRow = false;
+		boolean isInColumn = false;
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) { //picked cell
+				for (int z = 0; z < 9; z++) {
+					if (candidates[r][c][z] != 0) { //picked a single candidate in that cell to test full row and columb candidates
+						testCandidate = candidates[r][c][z];
+						isInColumn = false;
+						isInRow = false;
+						//search column by incrementing row vv downwards aka column stays the same
+						for (int r2 = 0; r2 < 9; r2++) {
+							if (r2 != r) {
+								for (int z2 = 0; z2 < 9; z2++) {
+									if (testCandidate == candidates[r2][c][z2]) {
+										isInColumn = true;
+									} 
+								}
+								
+							}
+						}
+						if (!isInColumn) {
+							board[r][c] = testCandidate;
+						}
+						
+						for (int c2 = 0; c2 < 9; c2++) {
+							if (c2 != c) {
+								for (int z3 = 0; z3 < 9; z3++) {
+									if (testCandidate == candidates[r][c2][z3]) {
+										isInRow = true;
+									} 
+								}
+							}
+						}
+						if (!isInRow) {
+							board[r][c] = testCandidate;
+						}
+						
+					}
+				}
+			}
+		}
+	}
 
 
 	public void setNakedSingles() {
@@ -23,9 +71,12 @@ public class Sudoku { //default constructor
 						for (int z = 0; z < 9; z++) {
 							if (candidates[l][m][z] != 0) {
 								board[l][m] = candidates[l][m][z];
+								isNakedSingles = true;
 								break;
 							}
 						}
+					} else {
+						isNakedSingles = false;
 					}
 				}
 			}
@@ -126,6 +177,7 @@ public class Sudoku { //default constructor
 	}
 
 	public Sudoku() {
+		isNakedSingles = true;
 		candidates = new int[9][9][9];
 		board = new int[9][9];
 		for (int i = 0; i < 9; i++) {      //iterate through every cell in the 2D array
@@ -147,6 +199,7 @@ public class Sudoku { //default constructor
 	}
 
 	public Sudoku(int[][] inBoard) {
+		isNakedSingles = true;
 		candidates = new int[9][9][9];
 		board = new int[9][9];
 		/*creates a Sudoku object with an initial board defined
@@ -195,7 +248,7 @@ public class Sudoku { //default constructor
 	}
 
 	public boolean nakedSingles() {
-		return true;
+		return isNakedSingles;
 	}
 
 	public boolean hiddenSingles() {
@@ -205,7 +258,7 @@ public class Sudoku { //default constructor
 	public void solve() {
 		/*the core of the solving code. attempts to solve the sudoku board created
 		by the constructor */
-		// while (isSolved() && (nakedSingles() || hiddenSingles())) {
+		while (!isSolved() && (nakedSingles() || hiddenSingles())) {
 			//logic goes here
 			//the basic idea goes as this
 			//Step 1: setCandidates()
@@ -219,14 +272,40 @@ public class Sudoku { //default constructor
 			
 			printBoard();
 			setCandidates();
-			setNakedSingles();
-			printBoard();
-			setCandidates();
-			setNakedSingles();
-			printBoard();
 
-			// break;
-		// }
+			setNakedSingles();
+			setHiddenSingles();
+
+			setCandidates();
+
+			setNakedSingles();
+			setHiddenSingles();
+
+			setCandidates();
+
+			setNakedSingles();
+			setHiddenSingles();
+
+			setCandidates();
+
+			setNakedSingles();
+			setHiddenSingles();
+
+			setCandidates();
+
+
+			printBoard();
+			// setCandidates();
+			// setNakedSingles();
+			// printBoard();
+			// for (int k = 0; k < 9; k++) {
+			// 	for (int n = 0; n < 9; n++) {
+			// 		System.out.println(candidates[2][k][n]);
+			// 	}
+			// }
+
+			break;
+		}
 	}
 
 	public static void main(String[] args) {
