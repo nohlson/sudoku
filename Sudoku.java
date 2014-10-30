@@ -67,6 +67,7 @@ public class Sudoku { //default constructor
 		int changeVertical = 0;
 		for (int rr = 0; rr < 9; rr++) {
 			for (int cc = 0; cc < 9; cc++) { //picked cell
+				setCandidates();
 				if (board[rr][cc] == 0) {
 				for (int zz = 0; zz < 9; zz++) {
 					if (candidates[rr][cc][zz] != 0) {
@@ -665,13 +666,14 @@ public class Sudoku { //default constructor
 	public boolean isSolved() {
 		//returns true if the board is in a solved state
 		boolean holder = true;
+		outerloop:
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (board[i][j] != 0) { //iterates over all the cells in board and checks if their non-zero
 					holder = true;
 				} else {
 					holder = false;
-					break;
+					break outerloop;
 				}
 			}
 		}
@@ -721,6 +723,7 @@ public class Sudoku { //default constructor
 
 			setCandidates();
 			setNakedSingles();
+			setCandidates();
 			setHiddenSingles();
 			solveIterations++;
 			if (solveIterations > 20) {
