@@ -684,7 +684,11 @@ public class Sudoku { //default constructor
 		//contains true at i if i is a candidate for the cell at row and column
 		boolean[] holder;
 		holder = new boolean[9];
-		holder[0] = true;
+		for (int h = 0; h < 9; h++) {
+			if (candidates[row][column][h] != 0) {
+				holder[h] = true;
+			}
+		}
 		return holder;
 	}
 
