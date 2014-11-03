@@ -12,8 +12,10 @@ public class Sudoku { //default constructor
 	
 
 
-	public void setHiddenSingles() {
-		/*The setHiddenSingles() method will try to find cells that can only be one number based on the current known board candidates
+
+
+	public boolean hiddenSingles() {
+		/*The hiddenSingles() method will try to find cells that can only be one number based on the current known board candidates
 		but are not naked singles. The first section will search through the row and the column of a given cell to see if a sepecific
 		candidate exists or not in any other of the cell's candidates. If that candidate does not exist in any of the other cells in that
 		cells row or column that candidate  will be set to the given cell.*/
@@ -501,10 +503,11 @@ public class Sudoku { //default constructor
 				}
 			}
 		}
+		return isHiddenSingles;
 	}
 
 
-	public void setNakedSingles() {
+	public boolean nakedSingles() {
 		//find a cell with a naked single
 		int zeroCounter = 0;
 		isNakedSingles = false;
@@ -527,6 +530,7 @@ public class Sudoku { //default constructor
 				}
 			}
 		}
+		return isNakedSingles;
 	}
 
 
@@ -640,13 +644,17 @@ public class Sudoku { //default constructor
 		//creates a Sudoku object and initializes an empty board
 	}
 
-	public Sudoku(int[][] isBoard) {
+	public Sudoku(int[][] board) {
 		/*creates a Sudoku object with an initial board defined
 		by the 2D array 'board'. board[r][c] represents the
 		value stored in the cell at the intersection of row r
 		and column c. 0 represents an empty cell */
 		// board = inBoard; //sets the overall board equal to the arguement board
-		board = isBoard;
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) {
+				board[r][c] = board[r][c];
+			}
+		}
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int n = 0; n < 9; n++) { 
@@ -674,8 +682,13 @@ public class Sudoku { //default constructor
 	}
 
 	public int[][] board() {
-		//returns a copy of the current state of the board
-		return board;
+		int[][] copy = new int[9][9];
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) {
+				copy[r][c] = board[r][c];
+			}
+		}
+		return copy;
 	}
 
 	public boolean[] candidates(int row, int column) {
@@ -691,13 +704,7 @@ public class Sudoku { //default constructor
 		return holder;
 	}
 
-	public boolean nakedSingles() {
-		return isNakedSingles;
-	}
 
-	public boolean hiddenSingles() {
-		return isHiddenSingles;
-	}
 
 	public void solve() {
 		/*the core of the solving code. attempts to solve the sudoku board created
@@ -720,11 +727,11 @@ public class Sudoku { //default constructor
 
 			setCandidates();
 			while (isNakedSingles) {
-				setNakedSingles();
+				nakedSingles();
 				setCandidates();
 			}
 			while (isHiddenSingles) {
-				setHiddenSingles();
+				hiddenSingles();
 				setCandidates();
 			}
 
@@ -792,7 +799,7 @@ public class Sudoku { //default constructor
 		Sudoku s = new Sudoku(testBoard2);
 		//s.solve();
 		s.printBoard();
-		s.setHiddenSingles();
+		s.hiddenSingles();
 		s.printBoard();
 
 		

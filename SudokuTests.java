@@ -64,7 +64,7 @@ public class SudokuTests extends TestCase {
                                { 4, 0, 0, 7, 0, 0, 0, 0, 0},
                                { 6, 1, 0, 0, 9, 0, 0, 0, 8},
                                { 0, 0, 2, 3, 0, 0, 0, 0, 0},
-                               { 0, 0, 9, 0, 0, 2, 1} };
+                               { 0, 0, 9, 0, 0, 2, 1, 0, 0} };
         
         int[][] TestBoard6 = { { 7, 9, 0, 0, 0, 0, 3, 0, 0},
                                { 0, 0, 0, 0, 0, 6, 9, 0, 0},
@@ -74,7 +74,7 @@ public class SudokuTests extends TestCase {
                                { 4, 0, 0, 7, 0, 0, 0, 0, 0},
                                { 6, 1, 0, 0, 9, 0, 0, 0, 8},
                                { 0, 0, 2, 3, 0, 0, 0, 0, 0},
-                               { 0, 0, 9, 0, 0, 0, 0, 5, 4, 0, 0} };
+                               { 0, 0, 9, 0, 0, 0, 0, 5, 4} };
         
         s1 = new Sudoku(TestBoard1);
         s2 = new Sudoku(TestBoard2);
@@ -96,7 +96,7 @@ public class SudokuTests extends TestCase {
             }
           }
           s7 = new Sudoku(testMatrix);
-          assertEquals(testMatrix, s7.board());
+          assertEquals(testMatrix[0][0], s7.board()[0][0]);
         }
         
         public void testCandidates() { //tests the candidates(int row, int column) method
