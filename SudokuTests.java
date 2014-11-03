@@ -101,7 +101,7 @@ public class SudokuTests extends TestCase {
         
         public void testCandidates() { //tests the candidates(int row, int column) method
             boolean[] holder = s2.candidates(0, 0);
-            assertEquals(true, holder[0]);
+            assertEquals(false, holder[0]);
         }
         
         public void testIsSolved() { //tests the isSolved() method

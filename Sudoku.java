@@ -6,7 +6,7 @@ CS180
 */
 public class Sudoku { //default constructor
 	static int[][] board = new int[9][9];
-	static int[][][] candidates = new int[9][9][9];
+	static int[][][] candidates = new int[9][9][10];
 	static boolean isNakedSingles = true;;
 	static boolean isHiddenSingles = true;
 	
@@ -26,7 +26,7 @@ public class Sudoku { //default constructor
 		for (int r = 0; r < 9; r++) {
 			for (int c = 0; c < 9; c++) { //picked cell
 				setCandidates();
-				for (int z = 0; z < 9; z++) {
+				for (int z = 0; z < 10; z++) {
 					if (candidates[r][c][z] != 0) { //picked a single candidate in that cell to test full row and columb candidates
 						testCandidate = candidates[r][c][z];
 						isInColumn = false;
@@ -34,7 +34,7 @@ public class Sudoku { //default constructor
 						//search column by incrementing row vv downwards aka column stays the same
 						for (int r2 = 0; r2 < 9; r2++) {
 							if (r2 != r) {
-								for (int z2 = 0; z2 < 9; z2++) {
+								for (int z2 = 0; z2 < 10; z2++) {
 									if (testCandidate == candidates[r2][c][z2]) {
 										isInColumn = true;
 									} 
@@ -49,7 +49,7 @@ public class Sudoku { //default constructor
 						//search row by incrementing column >> sideways aka row stays the same
 						for (int c2 = 0; c2 < 9; c2++) {
 							if (c2 != c) {
-								for (int z3 = 0; z3 < 9; z3++) {
+								for (int z3 = 0; z3 < 10; z3++) {
 									if (testCandidate == candidates[r][c2][z3]) {
 										isInRow = true;
 									} 
@@ -77,7 +77,7 @@ public class Sudoku { //default constructor
 			for (int cc = 0; cc < 9; cc++) { //picked cell
 				setCandidates();
 				if (board[rr][cc] == 0) {
-					for (int zz = 0; zz < 9; zz++) {
+					for (int zz = 0; zz < 10; zz++) {
 						if (candidates[rr][cc][zz] != 0) {
 							otherBoxHolder = candidates[rr][cc][zz];
 							changeVertical = 0;
@@ -514,12 +514,12 @@ public class Sudoku { //default constructor
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				zeroCounter = 0;
-				for (int o = 0; o < 9; o++){
+				for (int o = 0; o < 10; o++){
 					if (candidates[l][m][o] == 0) {
 						zeroCounter++;
 					}
 					if (zeroCounter == 8) { //found a naked single. put that in
-						for (int z = 0; z < 9; z++) {
+						for (int z = 0; z < 10; z++) {
 							if (candidates[l][m][z] != 0) {
 								board[l][m] = candidates[l][m][z];
 								isNakedSingles = true;
@@ -565,7 +565,7 @@ public class Sudoku { //default constructor
 		//this first part sets only cells that have a value candidate values to 0;
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
-				for (int n = 0; n < 9; n++) { 
+				for (int n = 0; n < 10; n++) { 
 					if (board[l][m] != 0) {
 						candidates[l][m][n] = 0;  
 					}
@@ -583,7 +583,7 @@ public class Sudoku { //default constructor
 				for (int o = 0; o < 9; o++)
 						if (board[l][o] != 0) {
 							holder = board[l][o];
-							candidates[l][m][holder - 1] = 0;
+							candidates[l][m][holder] = 0;
 						}
 			}
 		}
@@ -594,7 +594,7 @@ public class Sudoku { //default constructor
 				for (int o = 0; o < 9; o++) {
 					if (board[o][m] != 0) {
 						holder = board[o][m];
-						candidates[l][m][holder - 1] = 0;
+						candidates[l][m][holder] = 0;
 					}
 				}
 			}
@@ -614,7 +614,7 @@ public class Sudoku { //default constructor
 							for (int c = numBox2; c <= (2 + numBox2); c++) {
 								if (board[r][c] != 0) {
 									holder = board[r][c];
-									candidates[l][m][holder - 1] = 0;
+									candidates[l][m][holder] = 0;
 								}
 							}
 						}
@@ -636,7 +636,7 @@ public class Sudoku { //default constructor
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int n = 0; n < 9; n++) { 
-					candidates[l][m][n] = n + 1;  //initializes the candidates 3D matrix to every value
+					candidates[l][m][n] = n;  //initializes the candidates 3D matrix to every value
 				}
 			}
 		}
@@ -644,7 +644,7 @@ public class Sudoku { //default constructor
 		//creates a Sudoku object and initializes an empty board
 	}
 
-	public Sudoku(int[][] board) {
+	public Sudoku(int[][] isBoard) {
 		/*creates a Sudoku object with an initial board defined
 		by the 2D array 'board'. board[r][c] represents the
 		value stored in the cell at the intersection of row r
@@ -652,13 +652,13 @@ public class Sudoku { //default constructor
 		// board = inBoard; //sets the overall board equal to the arguement board
 		for (int r = 0; r < 9; r++) {
 			for (int c = 0; c < 9; c++) {
-				board[r][c] = board[r][c];
+				board[r][c] = isBoard[r][c];
 			}
 		}
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int n = 0; n < 9; n++) { 
-					candidates[l][m][n] = n + 1;  
+					candidates[l][m][n] = n;  
 				}
 			}
 		}
@@ -696,7 +696,7 @@ public class Sudoku { //default constructor
 		//contains true at i if i is a candidate for the cell at row and column
 		boolean[] holder;
 		holder = new boolean[9];
-		for (int h = 0; h < 9; h++) {
+		for (int h = 0; h < 10; h++) {
 			if (candidates[row][column][h] != 0) {
 				holder[h] = true;
 			}
