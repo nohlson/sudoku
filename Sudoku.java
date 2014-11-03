@@ -5,14 +5,18 @@ CS180
 
 */
 public class Sudoku { //default constructor
-	static int[][] board;
-	static int[][][] candidates;
-	static boolean isNakedSingles;
-	static boolean isHiddenSingles;
-
+	static int[][] board = new int[9][9];
+	static int[][][] candidates = new int[9][9][9];
+	static boolean isNakedSingles = true;;
+	static boolean isHiddenSingles = true;
+	
 
 
 	public void setHiddenSingles() {
+		/*The setHiddenSingles() method will try to find cells that can only be one number based on the current known board candidates
+		but are not naked singles. The first section will search through the row and the column of a given cell to see if a sepecific
+		candidate exists or not in any other of the cell's candidates. If that candidate does not exist in any of the other cells in that
+		cells row or column that candidate  will be set to the given cell.*/
 		int testCandidate = 0;
 		boolean isInRow = false;
 		boolean isInColumn = false;
@@ -40,7 +44,7 @@ public class Sudoku { //default constructor
 							board[r][c] = testCandidate;
 							isHiddenSingles = true;
 						} 
-						
+						//search row by incrementing column >> sideways aka row stays the same
 						for (int c2 = 0; c2 < 9; c2++) {
 							if (c2 != c) {
 								for (int z3 = 0; z3 < 9; z3++) {
@@ -60,9 +64,10 @@ public class Sudoku { //default constructor
 		}
 
 
-		/*the second section of finding hidden singles consists of checking the 'boxes' above, below, to the right and
-		to the left of the box that the box that the cell is in. it consists of some of the most terribly written code in the
-		history of time. it is so redundant and stupid that noone should ever emulate it.*/
+		/*the second section of finding hidden singles consists of checking the 'boxes' above and/or below, to the right and/or
+		to the left of the 'box' of a given cell. it consists of some of the most terribly written code in the
+		history of time. it is so redundant and stupid that noone should ever emulate it. It's over 400 lines of code that could
+		be simplified to possibly 60 or 70.*/
 		int otherBoxHolder = 0;
 		int changeHorizontal = 0;
 		int changeVertical = 0;
@@ -617,9 +622,6 @@ public class Sudoku { //default constructor
 	}
 
 	public Sudoku() {
-		isNakedSingles = true;
-		candidates = new int[9][9][9];
-		board = new int[9][9];
 		for (int i = 0; i < 9; i++) {      //iterate through every cell in the 2D array
 			for (int j = 0; j < 9; j++) {  //and set every value
 				board[i][j] = 0;           //to 0
@@ -638,16 +640,13 @@ public class Sudoku { //default constructor
 		//creates a Sudoku object and initializes an empty board
 	}
 
-	public Sudoku(int[][] inBoard) {
-		isNakedSingles = true;
-		candidates = new int[9][9][9];
-		board = new int[9][9];
+	public Sudoku(int[][] isBoard) {
 		/*creates a Sudoku object with an initial board defined
 		by the 2D array 'board'. board[r][c] represents the
 		value stored in the cell at the intersection of row r
 		and column c. 0 represents an empty cell */
-		board = inBoard; //sets the overall board equal to the arguement board
-
+		// board = inBoard; //sets the overall board equal to the arguement board
+		board = isBoard;
 		for (int l = 0; l < 9; l++) {
 			for (int m = 0; m < 9; m++) {
 				for (int n = 0; n < 9; n++) { 
@@ -697,7 +696,7 @@ public class Sudoku { //default constructor
 	}
 
 	public boolean hiddenSingles() {
-		return true;
+		return isHiddenSingles;
 	}
 
 	public void solve() {
@@ -755,31 +754,46 @@ public class Sudoku { //default constructor
 			
 			
 		} else {
-			testBoard[3][3] = 4;
-			testBoard[3][4] = 6;
-			testBoard[3][5] = 1;
-			testBoard[4][3] = 3;
-			testBoard[4][4] = 7;
-			testBoard[4][5] = 9;
-			testBoard[5][3] = 2;
-			testBoard[5][5] = 5;
+			// testBoard[3][3] = 4;
+			// testBoard[3][4] = 6;
+			// testBoard[3][5] = 1;
+			// testBoard[4][3] = 3;
+			// testBoard[4][4] = 7;
+			// testBoard[4][5] = 9;
+			// testBoard[5][3] = 2;
+			// testBoard[5][5] = 5;
 
-			testBoard[0][4] = 1;
-			testBoard[1][4] = 2;
+			// testBoard[0][4] = 1;
+			// testBoard[1][4] = 2;
 
 
-			testBoard[3][4] = 6;
-			testBoard[4][4] = 7;
-			// testBoard[5][4] = 8;
+			// testBoard[3][4] = 6;
+			// testBoard[4][4] = 7;
+			// // testBoard[5][4] = 8;
 
-			testBoard[6][4] = 5;
-			testBoard[7][4] = 4;
-			testBoard[8][4] = 9;
+			// testBoard[6][4] = 5;
+			// testBoard[7][4] = 4;
+			// testBoard[8][4] = 9;
+			
+
+
 		}
+		int[][] testBoard2 = {   {0,0,0,0,0,0,0,0,0},
+								{0,0,0,2,0,0,0,0,0},
+								{3,0,0,0,0,0,0,0,0},
+								{4,0,0,0,0,0,0,0,0},
+								{5,0,0,0,0,0,0,0,0},
+								{6,0,0,0,0,0,0,0,0},
+								{7,0,0,0,0,0,0,0,0},
+								{8,0,0,0,0,0,0,0,0},
+								{9,0,0,0,0,0,0,0,0},
+			};
 
-		Sudoku s = new Sudoku(testBoard);
-		System.out.println(s.isSolved());
-		s.solve();
+		Sudoku s = new Sudoku(testBoard2);
+		//s.solve();
+		s.printBoard();
+		s.setHiddenSingles();
+		s.printBoard();
 
 		
 
