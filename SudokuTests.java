@@ -16,7 +16,7 @@ public class SudokuTests extends TestCase {
         super.setUp();
         //initialize test puzzles
         
-        int[][] TestBoard1 = { { 7, 9, 6, 8, 5, 4, 3, 0, 1},
+        int[][] testBoard1 = { { 7, 9, 6, 8, 5, 4, 3, 0, 1},
                                { 2, 4, 3, 1, 7, 6, 9, 8, 5},
                                { 8, 5, 1, 0, 3, 9, 4, 7, 6},
                                { 1, 3, 7, 9, 6, 5, 8, 4, 2},
@@ -26,7 +26,7 @@ public class SudokuTests extends TestCase {
                                { 5, 8, 2, 3, 4, 1, 6, 9, 0},
                                { 3, 7, 9, 6, 8, 2, 1, 5, 4} };
         
-        int[][] TestBoard2 = { { 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        int[][] testBoard2 = { { 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                { 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                { 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                { 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -36,7 +36,7 @@ public class SudokuTests extends TestCase {
                                { 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                { 0, 0, 0, 0, 0, 0, 0, 0, 0} };
         
-        int[][] TestBoard3 = { { 0, 0, 2, 7, 0, 0, 1, 5, 0},
+        int[][] testBoard3 = { { 0, 0, 2, 7, 0, 0, 1, 5, 0},
                                { 1, 4, 0, 0, 3, 5, 0, 0, 0},
                                { 0, 7, 0, 2, 0, 0, 0, 0, 6},
                                { 6, 5, 4, 0, 0, 0, 0, 8, 0},
@@ -46,7 +46,7 @@ public class SudokuTests extends TestCase {
                                { 0, 0, 0, 9, 4, 0, 0, 1, 8},
                                { 0, 1, 3, 0, 0, 2, 6, 0, 0} };
         
-        int[][] TestBoard4 = { { 0, 0, 0, 1, 0, 9, 0, 0, 0},
+        int[][] testBoard4 = { { 0, 0, 0, 1, 0, 9, 0, 0, 0},
                                { 5, 0, 0, 0, 0, 0, 9, 0, 6},
                                { 9, 0, 6, 5, 0, 0, 3, 0, 0},
                                { 0, 0, 8, 4, 0, 5, 0, 0, 0},
@@ -56,7 +56,7 @@ public class SudokuTests extends TestCase {
                                { 2, 0, 5, 0, 0, 0, 0, 0, 8},
                                { 0, 0, 0, 7, 0, 1, 0, 0, 0} };
         
-        int[][] TestBoard5 = { { 7, 9, 0, 0, 0, 0, 3, 0, 0},
+        int[][] testBoard5 = { { 7, 9, 0, 0, 0, 0, 3, 0, 0},
                                { 0, 0, 0, 0, 0, 6, 9, 0, 0},
                                { 8, 0, 0, 0, 3, 0, 0, 7, 6},
                                { 0, 0, 0, 0, 0, 5, 0, 0, 0},
@@ -66,7 +66,7 @@ public class SudokuTests extends TestCase {
                                { 0, 0, 2, 3, 0, 0, 0, 0, 0},
                                { 0, 0, 9, 0, 0, 2, 1, 0, 0} };
         
-        int[][] TestBoard6 = { { 7, 9, 0, 0, 0, 0, 3, 0, 0},
+        int[][] testBoard6 = { { 7, 9, 0, 0, 0, 0, 3, 0, 0},
                                { 0, 0, 0, 0, 0, 6, 9, 0, 0},
                                { 8, 0, 0, 0, 3, 0, 0, 7, 6},
                                { 0, 0, 0, 0, 0, 5, 0, 0, 0},
@@ -75,18 +75,34 @@ public class SudokuTests extends TestCase {
                                { 6, 1, 0, 0, 9, 0, 0, 0, 8},
                                { 0, 0, 2, 3, 0, 0, 0, 0, 0},
                                { 0, 0, 9, 0, 0, 0, 0, 5, 4} };
+
+        int[][] testBoard7 = { { 0, 0, 0,   0, 0, 0,   0, 0, 0},
+                               { 0, 0, 0,   0, 2, 0,   0, 0, 0},
+                               { 0, 2, 0,   0, 0, 0,   0, 0, 0},
+
+                               { 0, 0, 0,   0, 0, 0,   0, 2, 0},
+                               { 2, 0, 0,   0, 0, 0,   0, 0, 0},
+                               { 0, 0, 0,   2, 0, 0,   0, 0, 0},
+
+                               { 0, 0, 0,   0, 0, 2,   0, 0, 0},
+                               { 0, 0, 2,   0, 0, 0,   0, 0, 0},
+                               { 0, 0, 0,   0, 0, 0,   0, 0, 2} };
+
+
         
-        s1 = new Sudoku(TestBoard1);
-        s2 = new Sudoku(TestBoard2);
-        s3 = new Sudoku(TestBoard3);
-        s4 = new Sudoku(TestBoard4);
-        s5 = new Sudoku(TestBoard5);
-        s6 = new Sudoku(TestBoard6);
+        s1 = new Sudoku(testBoard1);
+        s2 = new Sudoku(testBoard2);
+        s3 = new Sudoku(testBoard3);
+        s4 = new Sudoku(testBoard4);
+        s5 = new Sudoku(testBoard5);
+        s6 = new Sudoku(testBoard6);
+        s7 = new Sudoku(testBoard7);
+        s8 = new Sudoku(); //blank board
         
     }
     //test if the program can solve the puzzles
         public void testSolve() {
-            
+            assertEquals(false, s2.isSolved());
         }
         
         public void testBoard() { //tests the board() method
@@ -106,7 +122,7 @@ public class SudokuTests extends TestCase {
         
         public void testIsSolved() { //tests the isSolved() method
           s2.solve();
-          assertEquals(false,s2.isSolved());
+          assertEquals(false ,s2.isSolved());
         }
         
         public void testNakedSingles() {
@@ -114,7 +130,8 @@ public class SudokuTests extends TestCase {
         }
         
         public void testHiddenSingles() {
-            
+            s7.hiddenSingles();
+            assertEquals(0, s7.board()[0][6]);
         }
 
 }
