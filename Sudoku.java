@@ -750,6 +750,7 @@ public class Sudoku { //default constructor
 	public boolean[] candidates(int row, int column) {
 		//returns the list of candidates for the specified cell the array
 		//contains true at i if i is a candidate for the cell at row and column
+		setCandidates();
 		boolean[] holder;
 		holder = new boolean[10];
 		for (int h = 0; h < 10; h++) {
@@ -785,13 +786,13 @@ public class Sudoku { //default constructor
 
 			setCandidates();
 			nakedIterations = 0;
-			while (isNakedSingles && nakedIterations < 10) {
+			while (isNakedSingles) {
 				nakedSingles();
 				setCandidates();
 				nakedIterations++;
 			}
 			hiddenIterations = 0;
-			while (isHiddenSingles && hiddenIterations < 10) {
+			while (isHiddenSingles) {
 				hiddenSingles();
 				setCandidates();
 				hiddenIterations++;
@@ -846,25 +847,30 @@ public class Sudoku { //default constructor
 
 
 		}
-			// int[][] testBoard2 = { { 0, 0, 0,   0, 0, 0,   0, 0, 0},
-   //                             { 0, 0, 0,   0, 2, 0,   0, 0, 0},
-   //                             { 0, 2, 0,   0, 0, 0,   0, 0, 0},
+			int[][] testBoard2 = { { 0, 0, 0,   0, 0, 0,   0, 0, 0},
+                               { 0, 0, 0,   0, 2, 0,   0, 0, 0},
+                               { 0, 2, 0,   0, 0, 0,   0, 0, 0},
 
-   //                             { 0, 0, 0,   0, 0, 0,   0, 2, 0},
-   //                             { 2, 0, 0,   0, 0, 0,   0, 0, 0},
-   //                             { 0, 0, 0,   2, 0, 0,   0, 0, 0},
+                               { 0, 0, 0,   0, 0, 0,   0, 2, 0},
+                               { 2, 0, 0,   0, 0, 0,   0, 0, 0},
+                               { 0, 0, 0,   2, 0, 0,   0, 0, 0},
 
-   //                             { 0, 0, 0,   0, 0, 2,   0, 0, 0},
-   //                             { 0, 0, 2,   0, 0, 0,   0, 0, 0},
-   //                             { 0, 0, 0,   0, 0, 0,   0, 0, 2} };
+                               { 0, 0, 0,   0, 0, 2,   0, 0, 0},
+                               { 0, 0, 2,   0, 0, 0,   0, 0, 0},
+                               { 0, 0, 0,   0, 0, 0,   0, 0, 2} };
 
 		Sudoku s = new Sudoku(testBoard);
 		s.printBoard();
-		s.solve();
-		s.printBoard();
+		// s.hiddenSingles();
+		// s.printBoard();
 		// s.printBoard();
 		// s.hiddenSingles();
 		// System.out.println(s.board()[0][6]);
+		System.out.println(s.candidates(0,0)[0]);
+		for (int kj = 0; kj < 10; kj++) {
+			System.out.println(candidates[0][1][kj]);
+		}
+
 
 		
 
